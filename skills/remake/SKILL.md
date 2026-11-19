@@ -78,6 +78,20 @@ Needs the HyperFrames skills (`npx hyperframes skills update`). Run the CLI thro
   animate `x/y`, never `left/top/letterSpacing`; never tween a `.clip` itself; mark intentional text
   overlaps `data-layout-allow-overlap`.
 
+## Characters: track them, don't animate them by hand
+
+A mascot or flat-colour character (body plus eyes) is where hand-keyed motion looks dead: eyes that don't
+look at the typing, no head turn, no blink, no squash. Track it from the original instead:
+
+- `python3 scripts/track_blobs.py source.mp4 assets/track.json --rgb R,G,B --tol 40 --start <s> --end <e>`
+  gives, per frame, each body's centre, ellipse size and tilt (squash and stretch) and each eye's position,
+  length and angle. Sample the body colour from a frame. About 1 minute per 10 s of video.
+- Clean it: drop detections that are not the character (green text letters with holes, buttons of a
+  similar colour; filter by size, place and time), and fill gaps of 1–3 frames by interpolation.
+- Save it as `assets/track.js` (`window.TRACK = …`; no fetch) and draw the character from it on one canvas
+  overlay over the whole film; hide the hand-built copies once the tracked one takes over.
+- Result on a 12 s mascot clip: content overlap 0.59 to 0.64, and 0.84 to 0.97 in the mascot close-up.
+
 ## 4. Check while building
 
 - `hf snapshot --at t1,t2,… --no-end --against source.mp4 -o .work/snapN`, then

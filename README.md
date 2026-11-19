@@ -43,6 +43,7 @@ the original, then asks before spending any credits on the brand version.
 | `scripts/cmp.sh` | Original and rebuild side by side, one row per moment |
 | `scripts/envelope.py` | Loudness envelope so waveforms and spheres move with the real audio |
 | `scripts/beats.py` | Music tempo and first beat, to snap scene cuts onto the beat |
+| `scripts/track_blobs.py` | Tracks a mascot frame by frame (body squash and tilt, eye position and angle) so the rebuild moves like the original |
 | `assets/shared.js` | Seek-safe drawing helpers: dotted sphere, bar waveform, dust, keyframes, cursor, UI icons |
 
 ## Use responsibly
